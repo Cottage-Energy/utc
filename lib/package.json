@@ -3,6 +3,7 @@
   "version": "1.1.0",
   "description": "UTC date utils",
   "scripts": {
+    "prepare": "npm run build",
     "test": "env TZ=Asia/Kolkata vitest",
     "build": "make build"
   },
