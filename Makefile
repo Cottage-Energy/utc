@@ -1,8 +1,6 @@
 .PHONY: build
 build:
 	@env npx babel src --source-root src --out-dir . --extensions .mjs --out-file-extension .js --ignore "src/**/test.ts" --quiet
-	@cp package.json .
-	@cp *.md .
 
 publish: build
 	@npm publish --access public
