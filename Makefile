@@ -1,11 +1,25 @@
-.PHONY: build
-build:
+.PHONY: build clean
+
+# Define source and output directories
+SRC_DIR := src
+OUT_DIR := .
+DATE_DIR := date
+
+build: clean
 	@echo "Building the package"
-	@rm -rf date # Remove the old date directory in the output if it exists
-	@mkdir -p date # Create the date directory in the output
-	@env npx babel src --source-root src --out-dir . --extensions .mjs --out-file-extension .js --ignore "src/**/test.ts" --quiet
-	@cp src/date/*.d.ts date/ # Copy TypeScript declaration files from src/date to output date
-	@cp src/date/*.mjs date/ # Copy ES module files from src/date to output date
+	# Transpile JS files and copy them to the root directory
+	@env npx babel $(SRC_DIR) --out-dir $(OUT_DIR) --extensions .mjs,.ts --out-file-extension .js --ignore "$(SRC_DIR)/**/test.ts" --quiet
+	# Copy TypeScript declaration files and ES module files to the root directory
+	@cp $(SRC_DIR)/*.d.ts $(OUT_DIR)/
+	@cp $(SRC_DIR)/*.mjs $(OUT_DIR)/
+	# Create the date directory in the output and copy corresponding files
+	@mkdir -p $(OUT_DIR)/$(DATE_DIR)
+	@cp $(SRC_DIR)/$(DATE_DIR)/*.d.ts $(OUT_DIR)/$(DATE_DIR)/
+	@cp $(SRC_DIR)/$(DATE_DIR)/*.mjs $(OUT_DIR)/$(DATE_DIR)/
+
+clean:
+	@echo "Cleaning the output directory"
+	@rm -rf $(OUT_DIR)/$(DATE_DIR) $(OUT_DIR)/*.js $(OUT_DIR)/*.mjs $(OUT_DIR)/*.d.ts
 
 publish: build
 	@echo "Publishing the package"
