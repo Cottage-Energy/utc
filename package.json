@@ -7,24 +7,24 @@
     "test": "env TZ=Asia/Kolkata vitest",
     "build": "make build"
   },
-  "main": "./index.js",
-  "module": "./index.mjs",
-  "types": "./index.d.ts",
+  "main": "./lib/index.js",
+  "module": "./lib/index.mjs",
+  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./index.js"
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js"
     },
-    "./date": {
-      "types": "./date/index.d.ts",
-      "import": "./date/index.mjs",
-      "require": "./date/index.js"
+    "./lib/date": {
+      "types": "./lib/date/index.d.ts",
+      "import": "./lib/date/index.mjs",
+      "require": "./lib/date/index.js"
     },
-    "./date/mini": {
-      "types": "./date/mini.d.ts",
-      "import": "./date/mini.mjs",
-      "require": "./date/mini.js"
+    "./lib/date/mini": {
+      "types": "./lib/date/mini.d.ts",
+      "import": "./lib/date/mini.mjs",
+      "require": "./lib/date/mini.js"
     }
   },
   "sideEffects": false,
