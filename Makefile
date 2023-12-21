@@ -1,15 +1,16 @@
 .PHONY: build
 build:
-	@rm -rf ./date # Clear the build output directory for 'date'
+	@echo "Building the package"
+	@rm -rf date # Remove the old date directory in the output if it exists
+	@mkdir -p date # Create the date directory in the output
 	@env npx babel src --source-root src --out-dir . --extensions .mjs --out-file-extension .js --ignore "src/**/test.ts" --quiet
-	@mkdir -p ./date # Create the output 'date' directory if it doesn't exist
-	@find src -name '*.d.ts' -exec cp {} . \; # Copy .d.ts files from 'src' to root
-	@find src/date -name '*.d.ts' -exec cp --parents {} . \; # Copy .d.ts files from 'src/date' to 'date'
-	@find src -name '*.mjs' -exec cp {} . \; # Copy .mjs files from 'src' to root
-	@find src/date -name '*.mjs' -exec cp --parents {} . \; # Copy .mjs files from 'src/date' to 'date'
+	@cp src/date/*.d.ts date/ # Copy TypeScript declaration files from src/date to output date
+	@cp src/date/*.mjs date/ # Copy ES module files from src/date to output date
 
 publish: build
+	@echo "Publishing the package"
 	@npm publish --access public
 
 publish-next: build
+	@echo "Publishing the package with 'next' tag"
 	@npm publish --access public --tag next
