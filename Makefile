@@ -7,8 +7,8 @@ DATE_DIR := date
 
 build: clean
 	@echo "Building the package"
-	# Transpile JS files and copy them to the root directory
-	@env npx babel $(SRC_DIR) --out-dir $(OUT_DIR) --extensions .mjs,.ts --out-file-extension .js --ignore "$(SRC_DIR)/**/test.ts" --quiet
+	# Transpile JS files, excluding .d.ts files, and copy them to the root directory
+	@env npx babel $(SRC_DIR) --out-dir $(OUT_DIR) --extensions .js,.ts --out-file-extension .js --ignore "$(SRC_DIR)/**/*.d.ts,$(SRC_DIR)/**/test.ts" --quiet
 	# Copy TypeScript declaration files and ES module files to the root directory
 	@cp $(SRC_DIR)/*.d.ts $(OUT_DIR)/
 	@cp $(SRC_DIR)/*.mjs $(OUT_DIR)/
